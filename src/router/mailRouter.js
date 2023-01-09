@@ -1,7 +1,32 @@
 const Router = require('koa-router')
+const nodemailer = require('nodemailer')
 const router = new Router({ // 设置前缀
     prefix: '/mail'
 })
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+const timeFormat = (time, format = "Y-M-D h:m:s") => {
+    const formatNumber = n => `0${n}`.slice(-2);
+    const date = new Date(time);
+    const formatList = ["Y", "M", "D", "h", "m", "s"];
+    const resultList = [];
+    resultList.push(date.getFullYear().toString());
+    resultList.push(formatNumber(date.getMonth() + 1));
+    resultList.push(formatNumber(date.getDate()));
+    resultList.push(formatNumber(date.getHours()));
+    resultList.push(formatNumber(date.getMinutes()));
+    resultList.push(formatNumber(date.getSeconds()));
+    for (let i = 0; i < resultList.length; i++) {
+        format = format.replace(formatList[i], resultList[i]);
+    }
+    return format;
+}
 const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => {
     let transporter = nodemailer.createTransport({
         service: 'qq',
@@ -44,7 +69,7 @@ const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => 
                         应用大小：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;">
-                        ${size}
+                        ${formatBytes(size)}
                     </div>
                 </div>
                 <div style="display: flex;height: 36px;line-height: 36px;">
