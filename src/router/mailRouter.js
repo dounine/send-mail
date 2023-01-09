@@ -207,45 +207,37 @@ router.post('/success/send', async (ctx, next) => {
     const {
         user,
         token,
+        type,
         appid,
         version,
         mail,
         time,
         size,
-        title
-    } = ctx.request.body
-    await sendMailFun({
-        user,
-        token,
-        appid,
-        version,
-        mail,
-        time,
-        size,
-        title
-    })
-    ctx.body = {code: 0}
-})
-router.post('/fail/send', async (ctx, next) => {
-    const {
-        user,
-        token,
-        appid,
-        version,
-        mail,
         title,
         msg
     } = ctx.request.body
-    await sendMailFunFail({
-        user,
-        token,
-        appid,
-        version,
-        mail,
-        title,
-        msg
-    })
+    if (type === 'success') {
+        await sendMailFun({
+            user,
+            token,
+            appid,
+            version,
+            mail,
+            time,
+            size,
+            title
+        })
+    } else {
+        await sendMailFunFail({
+            user,
+            token,
+            appid,
+            version,
+            mail,
+            title,
+            msg
+        })
+    }
     ctx.body = {code: 0}
 })
-
 module.exports = router
