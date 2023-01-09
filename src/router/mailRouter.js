@@ -68,22 +68,6 @@ const sendMailFunFail = ({user, token, appid, version, mail, title = '砸壳通�
                 </div>
                 <div style="display: flex;height: 36px;line-height: 36px;">
                     <div style="font-size: 14px;font-weight: bold;color:#888888;width:100px;text-align: right;">
-                        直接下载：
-                    </div>
-                    <div style="font-size: 14px;font-weight: bold;text-align: left;">
-                        <a href=\"${"https://ipadump.com/#/versions/" + appid + '?version=' + version}\">${appid}_${version}.ipa</a>
-                    </div>
-                </div>
-                <div style="display: flex;height: 36px;line-height: 36px;">
-                    <div style="font-size: 14px;font-weight: bold;color:#888888;width:100px;text-align: right;">
-                        直接下载：
-                    </div>
-                    <div style="font-size: 14px;font-weight: bold;text-align: left;">
-                        <a href=\"${"https://ipadump.com/#/versions/" + appid + '?version=' + version}\">${appid}_${version}.ipa</a>
-                    </div>
-                </div>
-                <div style="display: flex;height: 36px;line-height: 36px;">
-                    <div style="font-size: 14px;font-weight: bold;color:#888888;width:100px;text-align: right;">
                         原因：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;text-align: left;">
