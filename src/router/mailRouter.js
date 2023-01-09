@@ -203,7 +203,7 @@ const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => 
         })
     })
 }
-router.post('/success/send', async (ctx, next) => {
+router.post('/send', async (ctx, next) => {
     const {
         user,
         token,
