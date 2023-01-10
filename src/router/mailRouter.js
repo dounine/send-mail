@@ -200,6 +200,7 @@ router.post('/send', async (ctx, next) => {
         title,
         msg
     } = ctx.request.body
+    console.log(new Date(), ctx.request.body)
     if (type === 'success') {
         await sendMailFun({
             user,
