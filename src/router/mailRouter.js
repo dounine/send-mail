@@ -29,7 +29,7 @@ const timeFormat = (time, format = "Y-M-D h:m:s") => {
     }
     return format;
 }
-const sendMailFunFail = ({user, token, appid, version, mail, title = '砸壳通知', msg}) => {
+const sendMailFunFail = ({user, lname, token, version, mail, title = '砸壳通知', msg}) => {
     let transporter = nodemailer.createTransport({
         service: 'qq',
         auth: {
@@ -55,7 +55,7 @@ const sendMailFunFail = ({user, token, appid, version, mail, title = '砸壳通�
                         应用名称：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;">
-                        ${appid}
+                        ${lname}
                     </div>
                 </div>
                 <div style="display: flex;height: 36px;line-height: 36px;">
@@ -87,7 +87,7 @@ const sendMailFunFail = ({user, token, appid, version, mail, title = '砸壳通�
         })
     })
 }
-const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => {
+const sendMailFun = ({user, name, lname, token, appid, version, mail, time, size, title}) => {
     let transporter = nodemailer.createTransport({
         service: 'qq',
         auth: {
@@ -113,7 +113,7 @@ const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => 
                         应用名称：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;">
-                        ${appid}
+                        ${lname}
                     </div>
                 </div>
                 <div style="display: flex;height: 36px;line-height: 36px;">
@@ -134,7 +134,7 @@ const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => 
                 </div>
                 <div style="display: flex;height: 36px;line-height: 36px;">
                     <div style="font-size: 14px;font-weight: bold;color:#888888;width:100px;text-align: right;">
-                        申请砸壳时间：
+                        申请提取时间：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;">
                         ${timeFormat(new Date(time))}
@@ -142,7 +142,7 @@ const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => 
                 </div>
                 <div style="display: flex;height: 36px;line-height: 36px;">
                     <div style="font-size: 14px;font-weight: bold;color:#888888;width:100px;text-align: right;">
-                        完成砸壳时间：
+                        完成提取时间：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;">
                         ${timeFormat(new Date())}
@@ -161,7 +161,7 @@ const sendMailFun = ({user, token, appid, version, mail, time, size, title}) => 
                         直接下载：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;text-align: left;">
-                        <a href=\"${"https://ipadump.com/#/versions/" + appid + '?version=' + version}\">${appid}_${version}.ipa</a>
+                        <a href=\"${"https://ipadump.com/#/versions/" + appid + '?version=' + version}\">${name}_${version}.ipa</a>
                     </div>
                 </div>
                 <div style="display: flex;height: 36px;line-height: 36px;">
@@ -193,6 +193,8 @@ router.post('/send', async (ctx, next) => {
         token,
         type,
         appid,
+        name,
+        lname,
         version,
         mail,
         time,
@@ -206,6 +208,8 @@ router.post('/send', async (ctx, next) => {
             user,
             token,
             appid,
+            name,
+            lname,
             version,
             mail,
             time,
@@ -216,7 +220,7 @@ router.post('/send', async (ctx, next) => {
         await sendMailFunFail({
             user,
             token,
-            appid,
+            lname,
             version,
             mail,
             title,
