@@ -29,7 +29,7 @@ const timeFormat = (time, format = "Y-M-D h:m:s") => {
     }
     return format;
 }
-const sendMailFunFail = ({user, lname, token, version, mail, title = '砸壳通知', msg}) => {
+const sendMailFunFail = ({user, ccode, lname, token, version, mail, title = '砸壳通知', msg}) => {
     let transporter = nodemailer.createTransport({
         service: 'qq',
         auth: {
@@ -87,7 +87,7 @@ const sendMailFunFail = ({user, lname, token, version, mail, title = '砸壳通�
         })
     })
 }
-const sendMailFun = ({user, name, lname, token, appid, version, mail, time, size, title}) => {
+const sendMailFun = ({user, ccode, name, lname, token, appid, version, mail, time, size, title}) => {
     let transporter = nodemailer.createTransport({
         service: 'qq',
         auth: {
@@ -169,7 +169,7 @@ const sendMailFun = ({user, name, lname, token, appid, version, mail, time, size
                         复制链接下载：
                     </div>
                     <div style="font-size: 14px;font-weight: bold;text-align: left;">
-                        https://ipadump.com/#/versions/${appid}?version=${version}
+                        https://ipadump.com/#/versions/${appid}?ccode=${ccode || ''}&version=${version}
                     </div>
                 </div>
                 <div>
@@ -199,6 +199,7 @@ router.post('/send', async (ctx, next) => {
         mail,
         time,
         size,
+        ccode,
         title,
         msg
     } = ctx.request.body
@@ -212,6 +213,7 @@ router.post('/send', async (ctx, next) => {
             lname,
             version,
             mail,
+            ccode,
             time,
             size,
             title
@@ -222,6 +224,7 @@ router.post('/send', async (ctx, next) => {
             token,
             lname,
             version,
+            ccode,
             mail,
             title,
             msg
